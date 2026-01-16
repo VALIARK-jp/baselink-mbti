@@ -7,7 +7,7 @@
 ### 主な機能
 
 - 投手/野手のポジション別診断
-- 10 問の質問による MBTI 16 タイプ判定
+- 10 問の質問による MBTI 16 タイプ判定（7 段階 Likert スケール対応）
 - 32 パターン（投手 16 + 野手 16）の診断結果表示
 - プロ野球選手との比較表示
 - Baselink AI サービスへの誘導
@@ -18,7 +18,7 @@
 - **言語**: TypeScript
 - **スタイリング**: Tailwind CSS
 - **状態管理**: React Hooks
-- **ホスティング**: Vercel 推奨
+- **ホスティング**: Vercel 推奨 / GitHub Pages 対応
 
 ## 必要な環境
 
@@ -47,6 +47,8 @@ npm run dev
 npm run build
 ```
 
+ビルドされた静的ファイルは `out` ディレクトリに生成されます。
+
 ### 4. 本番環境での起動
 
 ```bash
@@ -54,6 +56,12 @@ npm start
 ```
 
 ## デプロイ方法
+
+### GitHub Pages へのデプロイ
+
+1. GitHub リポジトリの Settings > Pages で、Source を"GitHub Actions"に設定
+2. `main`ブランチにプッシュすると、自動的に GitHub Actions がビルド・デプロイします
+3. デプロイ後、`https://valiark-jp.github.io/baselink-mbti/` でアクセス可能
 
 ### Vercel へのデプロイ（推奨）
 
@@ -63,16 +71,7 @@ npm start
 4. リポジトリをインポート
 5. デプロイボタンをクリック
 
-### その他のホスティング
-
-静的エクスポートを使用する場合：
-
-```bash
-npm run build
-npm run export
-```
-
-`out`ディレクトリが生成されるので、これを任意の静的ホスティングサービスにデプロイできます。
+**注意**: Vercel でデプロイする場合は、`next.config.js`の`output: 'export'`を削除するか、SSR モードに変更してください。
 
 ## プロジェクト構造
 
@@ -87,24 +86,29 @@ baselink_mbti/
 │   ├── QuizComponent.tsx
 │   └── ResultCard.tsx
 ├── data/               # データ定義
-│   ├── questions.ts    # 質問データ
-│   └── results.ts      # 診断結果マッピング
+│   ├── questions.ts    # 質問データ（7段階Likert形式）
+│   └── results.ts      # 診断結果マッピング（32タイプ）
 ├── utils/              # ユーティリティ関数
-│   └── calculateMBTI.ts
+│   ├── calculateMBTI.ts
+│   └── likert7Score.ts # 7段階Likertスコアリング
 ├── types/              # TypeScript型定義
 │   └── index.ts
 ├── styles/             # スタイル
 │   └── globals.css
 ├── public/             # 静的ファイル
+├── .github/            # GitHub Actions設定
+│   └── workflows/
+│       └── deploy.yml
 ├── package.json
 ├── tsconfig.json
-└── tailwind.config.js
+├── tailwind.config.js
+└── next.config.js
 ```
 
 ## 使用方法
 
 1. ユーザーが投手または野手を選択
-2. 10 問の質問に回答（共通 6 問 + ポジション別 4 問）
+2. 10 問の質問に 7 段階スケール（1-7）で回答（共通 6 問 + ポジション別 4 問）
 3. MBTI ロジックに基づいて 16 タイプから該当タイプを判定
 4. 診断結果を表示（タイプ名、似ているプロ選手、アドバイス）
 5. Baselink AI サービスへの誘導
@@ -116,4 +120,3 @@ baselink_mbti/
 ## ライセンス
 
 株式会社 SportsTech Japan
-

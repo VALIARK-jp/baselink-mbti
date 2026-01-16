@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -32,5 +33,3 @@
   "author": "株式会社SportsTech Japan",
   "license": "MIT"
 }
-
-
