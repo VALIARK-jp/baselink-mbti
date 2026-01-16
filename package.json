@@ -1,0 +1,36 @@
+{
+  "name": "baselink-mbti-quiz",
+  "version": "1.0.0",
+  "description": "Baselink AI 16タイプ野球診断 - MBTIベースの野球プレースタイル診断Webアプリケーション",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2"
+  },
+  "keywords": [
+    "baseball",
+    "mbti",
+    "quiz",
+    "nextjs",
+    "typescript"
+  ],
+  "author": "株式会社SportsTech Japan",
+  "license": "MIT"
+}
+
+
