@@ -1,7 +1,7 @@
-import { NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { Position } from '../types';
+import { NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { Position } from "../types";
 
 /**
  * エントリーページ
@@ -24,25 +24,33 @@ const HomePage: NextPage = () => {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="16タイプ野球診断 | Baselink AI" />
-        <meta property="og:description" content="君のプレースタイルから16タイプと4チームを診断。眠れる才能をAIで言語化せよ。" />
+        <meta
+          property="og:description"
+          content="君のプレースタイルから16タイプと4チームを診断。眠れる才能をAIで言語化せよ。"
+        />
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
+
       <div className="min-h-screen bg-gradient-to-br from-baselink-dark via-slate-900 to-baselink-dark flex items-center justify-center px-4 py-8">
         {/* 背景パターン */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }}></div>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          ></div>
         </div>
-        
+
         <div className="max-w-md w-full text-center relative z-10">
           {/* Baselink AI ロゴエリア */}
           <div className="mb-6">
             <div className="inline-block bg-baselink-primary/10 px-6 py-2 rounded-full mb-4">
-              <span className="text-baselink-primary font-bold text-sm">Baselink AI</span>
+              <span className="text-baselink-primary font-bold text-sm">
+                Baselink AI
+              </span>
             </div>
           </div>
 
@@ -54,18 +62,20 @@ const HomePage: NextPage = () => {
             <br />
             君のタイプと4つのチームを診断。
             <br />
-            <span className="text-baselink-accent font-semibold">眠れる才能をAIで言語化せよ。</span>
+            <span className="text-baselink-accent font-semibold">
+              眠れる才能をAIで言語化せよ。
+            </span>
           </p>
 
           <div className="space-y-4">
             <button
-              onClick={() => handleSelect('pitcher')}
+              onClick={() => handleSelect("pitcher")}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold py-6 px-8 rounded-2xl text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border border-blue-400/20"
             >
               投手として診断
             </button>
             <button
-              onClick={() => handleSelect('batter')}
+              onClick={() => handleSelect("batter")}
               className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold py-6 px-8 rounded-2xl text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border border-red-400/20"
             >
               打者として診断
@@ -95,7 +105,7 @@ const HomePage: NextPage = () => {
           {/* キャラクター図鑑へのリンク */}
           <div className="mt-8">
             <button
-              onClick={() => router.push('/gallery')}
+              onClick={() => router.push("/gallery")}
               className="text-baselink-accent hover:text-baselink-primary text-sm font-medium underline transition-colors"
             >
               📚 全キャラクターを見る
@@ -108,4 +118,3 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
-

@@ -3,7 +3,7 @@ import { QuestionSet } from "../types";
 /**
  * 質問データセット（新16キャラ分岐システム）
  * 全員共通10問: L/F × N/P × R/I × B/A
- * 
+ *
  * 軸の意味:
  * - L/F: 主導性（Lead / Focus）
  * - N/P: 判断（Now / Plan）

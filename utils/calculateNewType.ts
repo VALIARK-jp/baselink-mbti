@@ -23,7 +23,7 @@ export function createInitialScores(): NewScores {
 
 /**
  * 7段階Likertスケールをスコアに変換して加算
- * 
+ *
  * @param scores - 現在のスコア
  * @param left - 左側の軸（1に近い側）
  * @param right - 右側の軸（7に近い側）
@@ -34,7 +34,7 @@ export function applyLikertScore(
   scores: NewScores,
   left: AxisKey,
   right: AxisKey,
-  value: number
+  value: number,
 ): NewScores {
   if (!Number.isInteger(value) || value < 1 || value > 7) {
     throw new Error(`回答値は1-7の整数である必要があります: ${value}`);
@@ -57,7 +57,7 @@ export function applyLikertScore(
 
 /**
  * 最終的なタイプコードを生成
- * 
+ *
  * @param scores - 集計されたスコア
  * @returns 4文字のタイプコード（例: "LNRB"）
  */
@@ -73,14 +73,14 @@ export function getTypeCode(scores: NewScores): NewType {
 
 /**
  * 質問回答リストから新タイプを計算
- * 
+ *
  * @param answers - ユーザーの回答リスト（1-7の数値配列）
  * @param questions - 質問データの配列
  * @returns 判定された新タイプ
  */
 export function calculateNewType(
   answers: LikertAnswer[],
-  questions: Question[]
+  questions: Question[],
 ): NewType {
   let scores = createInitialScores();
 
@@ -97,12 +97,12 @@ export function calculateNewType(
 
 /**
  * URLクエリパラメータから回答リストをパース
- * 
+ *
  * @param queryString - URLクエリパラメータ（例: "2,5,3,7,..."）
  * @returns 回答リスト（1-7の数値配列）
  */
 export function parseAnswersFromQuery(
-  queryString: string | string[] | undefined
+  queryString: string | string[] | undefined,
 ): LikertAnswer[] {
   if (!queryString) return [];
 
@@ -115,7 +115,7 @@ export function parseAnswersFromQuery(
 
 /**
  * 回答リストをURLクエリパラメータ用の文字列に変換
- * 
+ *
  * @param answers - 回答リスト（1-7の数値配列）
  * @returns URLクエリパラメータ用の文字列（例: "2,5,3,7,..."）
  */
@@ -125,7 +125,7 @@ export function answersToQueryString(answers: LikertAnswer[]): string {
 
 /**
  * タイプコードからチーム情報を取得
- * 
+ *
  * @param type - タイプコード（例: "LNRB"）
  * @returns チーム情報
  */

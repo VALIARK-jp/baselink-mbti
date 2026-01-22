@@ -95,7 +95,9 @@ export default function ResultCard({
           >
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 h-full">
               {/* カードヘッダー */}
-              <div className={`bg-gradient-to-r ${getTeamGradient(result.teamColor)} text-white px-6 py-5`}>
+              <div
+                className={`bg-gradient-to-r ${getTeamGradient(result.teamColor)} text-white px-6 py-5`}
+              >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-medium opacity-90">
                     {positionLabel} / {result.team}
@@ -114,7 +116,10 @@ export default function ResultCard({
                 {/* キャラクター画像 */}
                 <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl mb-5 flex flex-col items-center justify-center border border-slate-200 overflow-hidden">
                   {!isImageError ? (
-                    <div className="relative w-full" style={{ aspectRatio: "4/5" }}>
+                    <div
+                      className="relative w-full"
+                      style={{ aspectRatio: "4/5" }}
+                    >
                       <Image
                         src={getCharacterImage(newType, position)}
                         alt={result.title}
@@ -275,7 +280,7 @@ export default function ResultCard({
           </button>
 
           <button
-            onClick={() => router.push('/gallery')}
+            onClick={() => router.push("/gallery")}
             className="w-full bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900 font-bold py-4 px-8 rounded-2xl shadow-md hover:shadow-lg transform transition-all hover:scale-[1.02] active:scale-100 text-sm"
           >
             📚 全キャラクターを見る

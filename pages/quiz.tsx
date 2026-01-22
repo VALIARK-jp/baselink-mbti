@@ -1,11 +1,11 @@
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import QuizComponent from '../components/QuizComponent';
-import { questions } from '../data/questions';
-import { Position, LikertAnswer } from '../types';
-import { answersToQueryString } from '../utils/calculateNewType';
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import QuizComponent from "../components/QuizComponent";
+import { questions } from "../data/questions";
+import { Position, LikertAnswer } from "../types";
+import { answersToQueryString } from "../utils/calculateNewType";
 
 /**
  * 診断質問ページ
@@ -21,8 +21,8 @@ const QuizPage: NextPage = () => {
 
   // ポジションが無効な場合はトップページへリダイレクト
   useEffect(() => {
-    if (router.isReady && position !== 'pitcher' && position !== 'batter') {
-      router.push('/');
+    if (router.isReady && position !== "pitcher" && position !== "batter") {
+      router.push("/");
     }
   }, [router.isReady, position, router]);
 
@@ -41,7 +41,7 @@ const QuizPage: NextPage = () => {
   };
 
   // ポジションが確定するまでローディング
-  if (!router.isReady || (position !== 'pitcher' && position !== 'batter')) {
+  if (!router.isReady || (position !== "pitcher" && position !== "batter")) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-baselink-dark to-slate-900 flex items-center justify-center">
         <div className="text-center">
@@ -75,4 +75,3 @@ const QuizPage: NextPage = () => {
 };
 
 export default QuizPage;
-

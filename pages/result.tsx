@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import ResultCard from "../components/ResultCard";
 import { newResultMapping } from "../data/newResults";
-import { calculateNewType, parseAnswersFromQuery } from "../utils/calculateNewType";
+import {
+  calculateNewType,
+  parseAnswersFromQuery,
+} from "../utils/calculateNewType";
 import { questions } from "../data/questions";
 import { Position, NewType, ResultData, LikertAnswer } from "../types";
 

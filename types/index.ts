@@ -14,10 +14,22 @@ export type AxisPair = "LF" | "NP" | "RI" | "BA";
 
 // 新16タイプ（4軸組み合わせ）
 export type NewType =
-  | "LNRB" | "LNRA" | "LPRB" | "LPRA"  // 青チーム（司令型：Lead × Reason）
-  | "LNIB" | "LNIA" | "LPIB" | "LPIA"  // 赤チーム（熱狂型：Lead × Intuition）
-  | "FNRB" | "FNRA" | "FPRB" | "FPRA"  // 緑チーム（堅実型：Focus × Reason）
-  | "FNIB" | "FNIA" | "FPIB" | "FPIA"; // 黄チーム（創造型：Focus × Intuition）
+  | "LNRB"
+  | "LNRA"
+  | "LPRB"
+  | "LPRA" // 青チーム（司令型：Lead × Reason）
+  | "LNIB"
+  | "LNIA"
+  | "LPIB"
+  | "LPIA" // 赤チーム（熱狂型：Lead × Intuition）
+  | "FNRB"
+  | "FNRA"
+  | "FPRB"
+  | "FPRA" // 緑チーム（堅実型：Focus × Reason）
+  | "FNIB"
+  | "FNIA"
+  | "FPIB"
+  | "FPIA"; // 黄チーム（創造型：Focus × Intuition）
 
 // 旧MBTI型（後方互換性のため残す）
 export type TraitValue = "E" | "I" | "S" | "N" | "T" | "F" | "J" | "P";
