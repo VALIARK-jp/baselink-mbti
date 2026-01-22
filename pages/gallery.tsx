@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { newResultMapping } from "../data/newResults";
@@ -178,11 +177,10 @@ const GalleryPage: NextPage = () => {
                     className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100"
                     style={{ aspectRatio: "4/5" }}
                   >
-                    <Image
+                    <img
                       src={getCharacterImage(type, selectedPosition)}
                       alt={result.title}
-                      fill
-                      className="object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </div>
 

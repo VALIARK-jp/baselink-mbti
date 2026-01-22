@@ -2,7 +2,7 @@ import { NewType } from "../types";
 
 /**
  * タイプコードからキャラクター画像のパスを取得
- * 現在はバッター/ピッチャーで8種類ずつ
+ * 現在はバッター/ピッチャーで16種類ずつ
  *
  * @param type - タイプコード（例: "LNRB"）
  * @param position - ポジション（"batter" or "pitcher"）デフォルトは自動判定
@@ -12,14 +12,11 @@ export function getCharacterImage(
   type: NewType,
   position?: "batter" | "pitcher",
 ): string {
-  // バッター8種類とピッチャー8種類で同じタイプコードを使用
-  // Leadタイプ（L始まり）= バッター/ピッチャー両方に存在
-  // 現状は両方に同じ8タイプが存在: LNRB, LNRA, LPRB, LPRA, LNIB, LNIA, LPIB, LPIA
-
   // positionが指定されていない場合はbatterをデフォルトに
   const folder = position || "batter";
 
   // 拡張子は.PNG（大文字）
+  // Next.jsのbasePathは自動的に追加されるため、相対パスで指定
   return `/images/characters/${folder}/${type}.PNG`;
 }
 

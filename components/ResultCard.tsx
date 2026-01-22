@@ -120,13 +120,11 @@ export default function ResultCard({
                       className="relative w-full"
                       style={{ aspectRatio: "4/5" }}
                     >
-                      <Image
+                      <img
                         src={getCharacterImage(newType, position)}
                         alt={result.title}
-                        fill
-                        className="object-contain"
+                        className="w-full h-full object-contain"
                         onError={() => setIsImageError(true)}
-                        priority
                       />
                     </div>
                   ) : (
