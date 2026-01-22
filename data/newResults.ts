@@ -8,7 +8,7 @@ export const newResultMapping: NewResultMapping = {
   // 青チーム（司令型：Lead × Reason）
   LNRB: {
     title: "現場型参謀",
-    player: "坂本勇人",
+    player: "例: 坂本勇人",
     team: "青（司令）",
     teamColor: "blue",
     desc: "今を整理し積む。冷静に状況を判断し、論理的にチームを導く現場リーダー。安定した実行力で信頼を集める。",
@@ -16,7 +16,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LNRA: {
     title: "即応司令",
-    player: "柳田悠岐",
+    player: "例: 柳田悠岐",
     team: "青（司令）",
     teamColor: "blue",
     desc: "即断即修正。状況に応じて素早く判断を下し、チームを最適解へ導く機敏なリーダー。",
@@ -24,7 +24,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LPRB: {
     title: "戦略設計者",
-    player: "菊池涼介",
+    player: "例: 菊池涼介",
     team: "青（司令）",
     teamColor: "blue",
     desc: "勝ち筋構築。事前に戦略を練り、計画的にチームを勝利へ導く理論派リーダー。",
@@ -32,7 +32,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LPRA: {
     title: "戦況調整官",
-    player: "山田哲人",
+    player: "例: 山田哲人",
     team: "青（司令）",
     teamColor: "blue",
     desc: "全体を俯瞰。大局を見据えながら柔軟に対応し、チーム全体を最適化する調整役。",
@@ -42,7 +42,7 @@ export const newResultMapping: NewResultMapping = {
   // 赤チーム（熱狂型：Lead × Intuition）
   LNIB: {
     title: "突撃リーダー",
-    player: "佐々木朗希",
+    player: "例: 佐々木朗希",
     team: "赤（熱狂）",
     teamColor: "red",
     desc: "勢いを積む。持ち前の情熱で前に出て、チームの流れを一気に変える突破力のあるリーダー。",
@@ -50,7 +50,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LNIA: {
     title: "ムードチェンジャー",
-    player: "村上宗隆",
+    player: "例: 村上宗隆",
     team: "赤（熱狂）",
     teamColor: "red",
     desc: "流れ即対応。感覚的に場の空気を読み、一瞬でチームの雰囲気を変える天性のリーダー。",
@@ -58,7 +58,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LPIB: {
     title: "信念型主将",
-    player: "大谷翔平",
+    player: "例: 大谷翔平",
     team: "赤（熱狂）",
     teamColor: "red",
     desc: "理想を積む。強い信念を持ち、その情熱で周囲を巻き込みチームを牽引する熱血リーダー。",
@@ -66,7 +66,7 @@ export const newResultMapping: NewResultMapping = {
   },
   LPIA: {
     title: "ビジョン牽引者",
-    player: "吉田正尚",
+    player: "例: 吉田正尚",
     team: "赤（熱狂）",
     teamColor: "red",
     desc: "理想で巻き込む。大きなビジョンを掲げ、柔軟に対応しながらチームを理想へ導く先導者。",
@@ -76,7 +76,7 @@ export const newResultMapping: NewResultMapping = {
   // 緑チーム（堅実型：Focus × Reason）
   FNRB: {
     title: "安定職人",
-    player: "秋山翔吾",
+    player: "例: 秋山翔吾",
     team: "緑（堅実）",
     teamColor: "green",
     desc: "精度×継続。自分の役割に集中し、高い精度で安定したプレーを継続する職人気質。",
@@ -84,7 +84,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FNRA: {
     title: "調整職人",
-    player: "近藤健介",
+    player: "例: 近藤健介",
     team: "緑（堅実）",
     teamColor: "green",
     desc: "微修正力。状況に応じて細かく調整しながら、確実に役割を果たす適応型職人。",
@@ -92,7 +92,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FPRB: {
     title: "分析屋",
-    player: "鈴木誠也",
+    player: "例: 鈴木誠也",
     team: "緑（堅実）",
     teamColor: "green",
     desc: "再現性。データと分析に基づいて計画を立て、確実に実行する理論派プレーヤー。",
@@ -100,7 +100,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FPRA: {
     title: "改善役",
-    player: "源田壮亮",
+    player: "例: 源田壮亮",
     team: "緑（堅実）",
     teamColor: "green",
     desc: "ズレ検知。計画と実際のズレを素早く察知し、改善しながら成長し続ける改善者。",
@@ -110,7 +110,7 @@ export const newResultMapping: NewResultMapping = {
   // 黄チーム（創造型：Focus × Intuition）
   FNIB: {
     title: "感覚職人",
-    player: "今宮健太",
+    player: "例: 今宮健太",
     team: "黄（創造）",
     teamColor: "yellow",
     desc: "感覚を磨く。型にとらわれず、自分の感覚を信じて独自のスタイルを確立する自由人。",
@@ -118,7 +118,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FNIA: {
     title: "自由人",
-    player: "中野拓夢",
+    player: "例: 中野拓夢",
     team: "黄（創造）",
     teamColor: "yellow",
     desc: "ノリ対応。その時の感覚とノリで自由にプレーし、予測不能な輝きを見せる天才肌。",
@@ -126,7 +126,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FPIB: {
     title: "理想追求者",
-    player: "牧秀悟",
+    player: "例: 牧秀悟",
     team: "黄（創造）",
     teamColor: "yellow",
     desc: "世界観持ち。自分なりの理想を追求し、独自の世界観でプレーする芸術家タイプ。",
@@ -134,7 +134,7 @@ export const newResultMapping: NewResultMapping = {
   },
   FPIA: {
     title: "クリエイター",
-    player: "森下暢仁",
+    player: "例: 森下暢仁",
     team: "黄（創造）",
     teamColor: "yellow",
     desc: "試行錯誤。計画を立てつつも柔軟に試行錯誤し、新しい可能性を創造する革新者。",

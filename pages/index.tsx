@@ -91,6 +91,16 @@ const HomePage: NextPage = () => {
               <div className="text-slate-400 text-xs">自由に輝く</div>
             </div>
           </div>
+
+          {/* キャラクター図鑑へのリンク */}
+          <div className="mt-8">
+            <button
+              onClick={() => router.push('/gallery')}
+              className="text-baselink-accent hover:text-baselink-primary text-sm font-medium underline transition-colors"
+            >
+              📚 全キャラクターを見る
+            </button>
+          </div>
         </div>
       </div>
     </>

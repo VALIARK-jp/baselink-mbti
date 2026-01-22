@@ -3,6 +3,7 @@ import { getTeamInfo } from "../utils/calculateNewType";
 import { getCharacterImage } from "../utils/getCharacterImage";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface ResultCardProps {
   result: ResultData;
@@ -24,6 +25,7 @@ export default function ResultCard({
 }: ResultCardProps) {
   const teamInfo = getTeamInfo(newType);
   const [isImageError, setIsImageError] = useState(false);
+  const router = useRouter();
 
   // ポジションラベル（日本語表示用）
   const positionLabel = position === "pitcher" ? "投手" : "打者";
@@ -264,12 +266,19 @@ export default function ResultCard({
         </div>
 
         {/* シェアボタン */}
-        <div className="mt-6 max-w-md mx-auto lg:max-w-full">
+        <div className="mt-6 max-w-md mx-auto lg:max-w-full space-y-3">
           <button
             onClick={handleShare}
             className="w-full bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-baselink-primary/30 text-slate-700 hover:text-slate-900 font-bold py-4 px-8 rounded-2xl shadow-md hover:shadow-lg transform transition-all hover:scale-[1.02] active:scale-100 text-sm"
           >
             結果をシェアする
+          </button>
+
+          <button
+            onClick={() => router.push('/gallery')}
+            className="w-full bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900 font-bold py-4 px-8 rounded-2xl shadow-md hover:shadow-lg transform transition-all hover:scale-[1.02] active:scale-100 text-sm"
+          >
+            📚 全キャラクターを見る
           </button>
 
           <p className="text-center text-slate-500 text-xs mt-4">
