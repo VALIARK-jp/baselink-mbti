@@ -1,158 +1,113 @@
 import { QuestionSet } from "../types";
 
 /**
- * 質問データセット（7段階Likertスケール対応）
- * 共通6問 + 投手専用4問 + 野手専用4問
+ * 質問データセット（新16キャラ分岐システム）
+ * 全員共通10問: L/F × N/P × R/I × B/A
+ * 
+ * 軸の意味:
+ * - L/F: 主導性（Lead / Focus）
+ * - N/P: 判断（Now / Plan）
+ * - R/I: 強み（Reason / Intuition）
+ * - B/A: 成長（Build / Adapt）
  */
 export const questions: QuestionSet = {
-  // 共通質問（6問）- 全ユーザーが回答
+  // 全員共通10問
   common: [
+    // Q1-Q3: 主導性（L / F）
     {
       id: "q1",
-      text: "練習中、一番やる気が出るのは？",
-      pair: "EI",
-      reverse: false,
+      text: "試合の流れが悪いとき、どれくらい自分が前に出て流れを変えたい？",
+      axis: ["F", "L"],
       labels: {
-        left: "仲間と競い合っている時",
-        right: "一人で黙々と課題に向き合う時",
+        left: "自分の役割に集中したい",
+        right: "自分が前に出て変えに行きたい",
       },
     },
     {
       id: "q2",
-      text: "理想の成長の仕方は？",
-      pair: "SN",
-      reverse: false,
+      text: "チームが迷っているとき、自分の判断をどれくらい周りに示す？",
+      axis: ["F", "L"],
       labels: {
-        left: "試合でどんどん経験を積みたい",
-        right: "理屈を理解してから練習したい",
+        left: "あまり出さない",
+        right: "はっきり示す",
       },
     },
     {
       id: "q3",
-      text: "監督のアドバイスに対して",
-      pair: "TF",
-      reverse: false,
+      text: "試合中、自分が中心になって声や行動で引っ張ることは多い？",
+      axis: ["F", "L"],
       labels: {
-        left: "納得感や勝率を重視する",
-        right: "自分の感覚や熱意を重視する",
+        left: "ほとんどない",
+        right: "かなり多い",
       },
     },
+
+    // Q4-Q6: 判断（N / P）
     {
       id: "q4",
-      text: "試合当日の朝は？",
-      pair: "JP",
-      reverse: false,
+      text: "プレー中の判断は、今見えている状況をどれくらい重視する？",
+      axis: ["P", "N"],
       labels: {
-        left: "決まったルーティンをこなす",
-        right: "その時の気分でリラックスする",
+        left: "次の展開まで考える",
+        right: "今の状況を最優先する",
       },
     },
     {
       id: "q5",
-      text: "初対面の他校の選手と",
-      pair: "EI",
-      reverse: false,
+      text: "打席や守備で、事前に考えたプランをどれくらい意識する？",
+      axis: ["N", "P"],
       labels: {
-        left: "すぐに打ち解けて話せる",
-        right: "相手の様子を見てから接する",
+        left: "あまり意識しない",
+        right: "強く意識する",
       },
     },
     {
       id: "q6",
-      text: "自分のプレーが崩れた時",
-      pair: "JP",
-      reverse: false,
+      text: "想定と違う展開になったとき、どちらを優先する？",
+      axis: ["N", "P"],
       labels: {
-        left: "基本の形に戻そうとする",
-        right: "新しいやり方をその場で試す",
+        left: "その場の判断",
+        right: "最初の計画",
       },
     },
-  ],
 
-  // 投手専用質問（4問）
-  pitcher: [
+    // Q7-Q8: 強み（R / I）
     {
       id: "q7",
-      text: "理想のピッチングは？",
-      pair: "SN",
-      reverse: false,
+      text: "調子が良いとき、その理由をあとから言葉で説明できる？",
+      axis: ["I", "R"],
       labels: {
-        left: "150kmの直球でねじ伏せる",
-        right: "変幻自在の変化球で翻弄する",
+        left: "できない（感覚的）",
+        right: "はっきり説明できる",
       },
     },
     {
       id: "q8",
-      text: "ピンチの場面での思考",
-      pair: "TF",
-      reverse: false,
+      text: "プレーを振り返るとき、どちらが多い？",
+      axis: ["I", "R"],
       labels: {
-        left: "相手のデータと弱点を思い出す",
-        right: "自分の「絶対に抑える」気持ちを信じる",
+        left: "感覚やフィーリング",
+        right: "理由や仕組み",
       },
     },
-    {
-      id: "q9",
-      text: "どちらのタイプと言われる？",
-      pair: "JP",
-      reverse: false,
-      labels: {
-        left: "大崩れしない安定感のある投手",
-        right: "調子が良いと手がつけられない投手",
-      },
-    },
-    {
-      id: "q10",
-      text: "研究したいデータは？",
-      pair: "SN",
-      reverse: false,
-      labels: {
-        left: "球速や回転数など自分の出力",
-        right: "相手の反応や配球の傾向",
-      },
-    },
-  ],
 
-  // 野手専用質問（4問）
-  batter: [
-    {
-      id: "q7",
-      text: "打席での意識は？",
-      pair: "SN",
-      reverse: false,
-      labels: {
-        left: "来た球を全力でしばきにいく",
-        right: "相手の配球を読んで裏をかく",
-      },
-    },
-    {
-      id: "q8",
-      text: "チームでの自分の役割は？",
-      pair: "TF",
-      reverse: false,
-      labels: {
-        left: "打点や結果で勝利に貢献する",
-        right: "雰囲気や繋ぎでチームを支える",
-      },
-    },
+    // Q9-Q10: 成長（B / A）
     {
       id: "q9",
-      text: "練習メニューの取り組み方",
-      pair: "JP",
-      reverse: false,
+      text: "新しいことを練習するとき、どんな進め方が多い？",
+      axis: ["A", "B"],
       labels: {
-        left: "毎日決まった数を必ずこなす",
-        right: "その日の感覚を重視して調整する",
+        left: "いろいろ試しながら変える",
+        right: "決めた形を続ける",
       },
     },
     {
       id: "q10",
-      text: "憧れるプレーは？",
-      pair: "SN",
-      reverse: false,
+      text: "調子が悪いときの対処はどちらに近い？",
+      axis: ["A", "B"],
       labels: {
-        left: "泥臭い守備やガッツある走塁",
-        right: "誰も真似できない華やかな打撃",
+        left: "方法を変えて試す",
+        right: "基本に戻って積み直す",
       },
     },
   ],

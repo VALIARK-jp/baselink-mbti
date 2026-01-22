@@ -1,17 +1,27 @@
 /**
  * Type definitions for Baselink AI 16-Type Baseball Quiz
+ * 新システム: L/F × N/P × R/I × B/A による16タイプ
  */
 
-// ポジションタイプ
+// ポジションタイプ（削除予定 - 全員共通10問に移行）
 export type Position = "pitcher" | "batter";
 
-// MBTI指標の値
+// 新4軸システムの値
+export type AxisKey = "L" | "F" | "N" | "P" | "R" | "I" | "B" | "A";
+
+// 新4軸のペア
+export type AxisPair = "LF" | "NP" | "RI" | "BA";
+
+// 新16タイプ（4軸組み合わせ）
+export type NewType =
+  | "LNRB" | "LNRA" | "LPRB" | "LPRA"  // 青チーム（司令型：Lead × Reason）
+  | "LNIB" | "LNIA" | "LPIB" | "LPIA"  // 赤チーム（熱狂型：Lead × Intuition）
+  | "FNRB" | "FNRA" | "FPRB" | "FPRA"  // 緑チーム（堅実型：Focus × Reason）
+  | "FNIB" | "FNIA" | "FPIB" | "FPIA"; // 黄チーム（創造型：Focus × Intuition）
+
+// 旧MBTI型（後方互換性のため残す）
 export type TraitValue = "E" | "I" | "S" | "N" | "T" | "F" | "J" | "P";
-
-// MBTI指標のペア
 export type TraitPair = "EI" | "SN" | "TF" | "JP";
-
-// MBTIタイプ（16種類）
 export type MBTIType =
   | "ISTJ"
   | "ISFJ"
@@ -39,13 +49,33 @@ export interface LikertLabels {
   right: string; // 右側（7に近い側）のラベル
 }
 
-// 質問データ構造（7段階Likert用）
+// 新システム用の質問データ構造
 export interface Question {
   id: string;
   text: string;
-  pair: TraitPair; // "EI", "SN", "TF", "JP"
-  reverse?: boolean; // 左右を逆にするか（オプション）
+  axis: [AxisKey, AxisKey]; // [左側の軸, 右側の軸] 例: ["F", "L"]
   labels: LikertLabels; // 左側と右側のラベル
+}
+
+// 旧システム用の質問データ構造（後方互換性）
+export interface OldQuestion {
+  id: string;
+  text: string;
+  pair: TraitPair;
+  reverse?: boolean;
+  labels: LikertLabels;
+}
+
+// 新スコアリングデータ（4軸8項目）
+export interface NewScores {
+  L: number;
+  F: number;
+  N: number;
+  P: number;
+  R: number;
+  I: number;
+  B: number;
+  A: number;
 }
 
 // 後方互換性のため（旧実装との互換）
@@ -59,34 +89,29 @@ export interface AnswerOption {
 
 // 診断結果データ構造
 export interface ResultData {
-  title: string; // タイプ名（例: "孤高の奪三振王"）
+  title: string; // タイプ名（例: "現場型参謀"）
   player: string; // 似ている選手名（例: "佐々木朗希"）
+  team: string; // チーム名（例: "青（司令）"）
+  teamColor: string; // チームカラー（例: "blue"）
   desc: string; // タイプの説明
   advice: string; // Baselink AIへの誘導メッセージ
 }
 
-// MBTIスコアリングデータ
-export interface MBTIScores {
-  E: number;
-  I: number;
-  S: number;
-  N: number;
-  T: number;
-  F: number;
-  J: number;
-  P: number;
-}
+// 新システムの結果マッピング（NewType → ResultData）
+export type NewResultMapping = {
+  [key in NewType]: ResultData;
+};
 
-// 診断結果マッピング（ポジション × MBTIタイプ）
+// 旧システムの診断結果マッピング（後方互換性）
 export type ResultMapping = {
   [key in Position]: {
     [key in MBTIType]: ResultData;
   };
 };
 
-// 質問リスト（ポジション別）
+// 質問リスト（新システムでは全員共通10問）
 export interface QuestionSet {
-  common: Question[];
-  pitcher: Question[];
-  batter: Question[];
+  common: Question[]; // 全員共通10問
+  pitcher?: OldQuestion[]; // 旧システム用（後方互換性）
+  batter?: OldQuestion[]; // 旧システム用（後方互換性）
 }

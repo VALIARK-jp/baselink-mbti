@@ -5,11 +5,11 @@ import Head from 'next/head';
 import QuizComponent from '../components/QuizComponent';
 import { questions } from '../data/questions';
 import { Position, LikertAnswer } from '../types';
-import { answersToQueryString } from '../utils/calculateMBTI';
+import { answersToQueryString } from '../utils/calculateNewType';
 
 /**
  * 診断質問ページ
- * 10問の質問に回答する画面
+ * 全員共通10問に回答する画面（ポジションは結果表示用に保持）
  */
 const QuizPage: NextPage = () => {
   const router = useRouter();
@@ -17,11 +17,7 @@ const QuizPage: NextPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<LikertAnswer[]>([]);
-  const [quizQuestions, setQuizQuestions] = useState(
-    questions.common.concat(
-      (position === 'pitcher' ? questions.pitcher : questions.batter) || []
-    )
-  );
+  const quizQuestions = questions.common; // 全員共通10問
 
   // ポジションが無効な場合はトップページへリダイレクト
   useEffect(() => {
@@ -29,17 +25,6 @@ const QuizPage: NextPage = () => {
       router.push('/');
     }
   }, [router.isReady, position, router]);
-
-  // 質問リストの準備
-  useEffect(() => {
-    if (position === 'pitcher' || position === 'batter') {
-      setQuizQuestions(
-        questions.common.concat(
-          position === 'pitcher' ? questions.pitcher : questions.batter
-        )
-      );
-    }
-  }, [position]);
 
   const handleAnswer = (answer: LikertAnswer) => {
     const newAnswers = [...answers, answer];
@@ -49,7 +34,7 @@ const QuizPage: NextPage = () => {
       setAnswers(newAnswers);
       setCurrentIndex(currentIndex + 1);
     } else {
-      // 全質問完了 → 結果ページへ
+      // 全質問完了 → 結果ページへ（ポジション情報も渡す）
       const answersQuery = answersToQueryString(newAnswers);
       router.push(`/result?position=${position}&answers=${answersQuery}`);
     }

@@ -1,22 +1,33 @@
-import { ResultData, MBTIType, Position, LikertAnswer } from "../types";
+import { ResultData, NewType, LikertAnswer, Position } from "../types";
+import { getTeamInfo } from "../utils/calculateNewType";
+import { getCharacterImage } from "../utils/getCharacterImage";
+import Image from "next/image";
+import { useState } from "react";
 
 interface ResultCardProps {
   result: ResultData;
-  mbtiType: MBTIType;
+  newType: NewType;
   position: Position;
   answers: LikertAnswer[];
 }
 
 /**
- * 診断結果表示コンポーネント
+ * 診断結果表示コンポーネント（新16タイプシステム対応）
  * 野球カード風のデザインで結果を表示
+ * ポジション別に画像と文言を出し分け
  */
 export default function ResultCard({
   result,
-  mbtiType,
+  newType,
   position,
   answers,
 }: ResultCardProps) {
+  const teamInfo = getTeamInfo(newType);
+  const [isImageError, setIsImageError] = useState(false);
+
+  // ポジションラベル（日本語表示用）
+  const positionLabel = position === "pitcher" ? "投手" : "打者";
+
   const handleBaselinkClick = () => {
     // Baselink AI公式サイトへ誘導
     const baselinkUrl = "https://baselinkai.com/";
@@ -24,7 +35,7 @@ export default function ResultCard({
   };
 
   const handleShare = () => {
-    const shareText = `私のタイプは「${result.title}」(${mbtiType})！似ている選手は${result.player}選手です。\n\n#BaselinkAI診断 #野球診断`;
+    const shareText = `私のタイプは「${result.title}」(${newType})！\n${positionLabel}として診断。チームは${result.team}。\n似ている選手は${result.player}選手です。\n\n#BaselinkAI診断 #野球診断`;
 
     if (navigator.share) {
       navigator
@@ -41,6 +52,22 @@ export default function ResultCard({
       navigator.clipboard.writeText(shareText).then(() => {
         alert("結果をクリップボードにコピーしました！");
       });
+    }
+  };
+
+  // チームカラーに応じた背景グラデーション
+  const getTeamGradient = (color: string) => {
+    switch (color) {
+      case "blue":
+        return "from-blue-600 to-blue-500";
+      case "red":
+        return "from-red-600 to-red-500";
+      case "green":
+        return "from-green-600 to-green-500";
+      case "yellow":
+        return "from-yellow-500 to-yellow-400";
+      default:
+        return "from-baselink-primary to-baselink-accent";
     }
   };
 
@@ -66,13 +93,13 @@ export default function ResultCard({
           >
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 h-full">
               {/* カードヘッダー */}
-              <div className="bg-gradient-to-r from-baselink-primary to-baselink-accent text-white px-6 py-5">
+              <div className={`bg-gradient-to-r ${getTeamGradient(result.teamColor)} text-white px-6 py-5`}>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-medium opacity-90">
-                    {position === "pitcher" ? "投手" : "野手"}
+                    {positionLabel} / {result.team}
                   </span>
                   <span className="text-xs font-medium opacity-90">
-                    TYPE: {mbtiType}
+                    TYPE: {newType}
                   </span>
                 </div>
                 <h2 className="text-2xl font-black text-white mt-2">
@@ -82,13 +109,37 @@ export default function ResultCard({
 
               {/* カードボディ */}
               <div className="p-6">
-                {/* 選手情報 */}
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 h-40 rounded-xl mb-5 flex flex-col items-center justify-center border border-slate-200">
-                  <div className="text-6xl mb-2">⚾</div>
-                  <p className="font-bold text-lg text-slate-800">
+                {/* キャラクター画像 */}
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl mb-5 flex flex-col items-center justify-center border border-slate-200 overflow-hidden">
+                  {!isImageError ? (
+                    <div className="relative w-full" style={{ aspectRatio: "4/5" }}>
+                      <Image
+                        src={getCharacterImage(newType, position)}
+                        alt={result.title}
+                        fill
+                        className="object-contain"
+                        onError={() => setIsImageError(true)}
+                        priority
+                      />
+                    </div>
+                  ) : (
+                    // フォールバック: 画像読み込みエラー時
+                    <div className="h-80 flex flex-col items-center justify-center">
+                      <div className="text-6xl mb-2">⚾</div>
+                      <p className="font-bold text-lg text-slate-800">
+                        {result.player}
+                      </p>
+                      <p className="text-slate-600 text-sm mt-1">選手</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 選手名表示 */}
+                <div className="text-center mb-6">
+                  <p className="font-bold text-xl text-slate-800">
                     {result.player}
                   </p>
-                  <p className="text-slate-600 text-sm mt-1">選手</p>
+                  <p className="text-slate-500 text-sm mt-1">選手タイプ</p>
                 </div>
 
                 {/* 説明 */}

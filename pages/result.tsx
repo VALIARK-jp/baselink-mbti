@@ -3,27 +3,27 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import ResultCard from "../components/ResultCard";
-import { resultMapping } from "../data/results";
-import { calculateMBTI, parseAnswersFromQuery } from "../utils/calculateMBTI";
+import { newResultMapping } from "../data/newResults";
+import { calculateNewType, parseAnswersFromQuery } from "../utils/calculateNewType";
 import { questions } from "../data/questions";
-import { Position, MBTIType, ResultData, LikertAnswer } from "../types";
+import { Position, NewType, ResultData, LikertAnswer } from "../types";
 
 /**
  * 診断結果ページ
- * MBTI判定と結果表示
+ * 新16タイプ判定と結果表示（ポジション別に画像・文言を出し分け）
  */
 const ResultPage: NextPage = () => {
   const router = useRouter();
   const { position, answers: answersQuery } = router.query;
 
-  const [mbtiType, setMbtiType] = useState<MBTIType | null>(null);
+  const [newType, setNewType] = useState<NewType | null>(null);
   const [result, setResult] = useState<ResultData | null>(null);
   const [answers, setAnswers] = useState<LikertAnswer[]>([]);
 
   useEffect(() => {
     if (!router.isReady) return;
 
-    // パラメータの検証
+    // ポジションの検証
     if (position !== "pitcher" && position !== "batter") {
       router.push("/");
       return;
@@ -38,22 +38,20 @@ const ResultPage: NextPage = () => {
 
     setAnswers(parsedAnswers);
 
-    // 質問リストを結合
-    const allQuestions = questions.common.concat(
-      position === "pitcher" ? questions.pitcher : questions.batter
-    );
+    // 全員共通10問
+    const allQuestions = questions.common;
 
-    // MBTIタイプを計算
-    const calculatedType = calculateMBTI(parsedAnswers, allQuestions);
-    setMbtiType(calculatedType);
+    // 新タイプを計算
+    const calculatedType = calculateNewType(parsedAnswers, allQuestions);
+    setNewType(calculatedType);
 
     // 結果データを取得
-    const resultData = resultMapping[position as Position][calculatedType];
+    const resultData = newResultMapping[calculatedType];
     setResult(resultData);
   }, [router.isReady, position, answersQuery, router]);
 
   // ローディング中
-  if (!mbtiType || !result || !position) {
+  if (!newType || !result || !position) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-baselink-light to-white flex items-center justify-center">
         <div className="text-center">
@@ -68,17 +66,17 @@ const ResultPage: NextPage = () => {
     <>
       <Head>
         <title>
-          {result.title} ({mbtiType}) - Baselink AI 野球診断
+          {result.title} ({newType}) - Baselink AI 野球診断
         </title>
         <meta
           name="description"
-          content={`あなたのタイプは「${result.title}」。似ている選手は${result.player}選手です。`}
+          content={`あなたのタイプは「${result.title}」（${result.team}）。似ている選手は${result.player}選手です。`}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ResultCard
         result={result}
-        mbtiType={mbtiType}
+        newType={newType}
         position={position as Position}
         answers={answers}
       />
