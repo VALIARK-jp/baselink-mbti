@@ -2,11 +2,11 @@ import { NewType } from "../types";
 
 /**
  * タイプコードからキャラクター画像のパスを取得
- * 現在はバッター/ピッチャーで16種類ずつ
+ * GitHub Pages用にbasePathを考慮
  *
  * @param type - タイプコード（例: "LNRB"）
  * @param position - ポジション（"batter" or "pitcher"）デフォルトは自動判定
- * @returns 画像のパス（例: "/images/characters/batter/LNRB.PNG"）
+ * @returns 画像のパス（例: "/baselink-mbti/images/characters/batter/LNRB.PNG"）
  */
 export function getCharacterImage(
   type: NewType,
@@ -15,9 +15,12 @@ export function getCharacterImage(
   // positionが指定されていない場合はbatterをデフォルトに
   const folder = position || "batter";
 
+  // GitHub Pages環境ではbasePathを追加
+  // process.env.NEXT_PUBLIC_BASE_PATHが設定されていればそれを使用
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  
   // 拡張子は.PNG（大文字）
-  // Next.jsのbasePathは自動的に追加されるため、相対パスで指定
-  return `/images/characters/${folder}/${type}.PNG`;
+  return `${basePath}/images/characters/${folder}/${type}.PNG`;
 }
 
 /**
