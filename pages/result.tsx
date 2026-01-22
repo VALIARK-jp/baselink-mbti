@@ -17,7 +17,7 @@ import { Position, NewType, ResultData, LikertAnswer } from "../types";
  */
 const ResultPage: NextPage = () => {
   const router = useRouter();
-  const { position, answers: answersQuery } = router.query;
+  const { position, answers: answersQuery, preview } = router.query;
 
   const [newType, setNewType] = useState<NewType | null>(null);
   const [result, setResult] = useState<ResultData | null>(null);
@@ -30,6 +30,17 @@ const ResultPage: NextPage = () => {
     if (position !== "pitcher" && position !== "batter") {
       router.push("/");
       return;
+    }
+
+    // プレビューモード（ギャラリーからの遷移）
+    if (preview && typeof preview === "string") {
+      const previewType = preview as NewType;
+      if (newResultMapping[previewType]) {
+        setNewType(previewType);
+        setResult(newResultMapping[previewType]);
+        setAnswers([4, 4, 4, 4, 4, 4, 4, 4, 4, 4]); // ダミー回答
+        return;
+      }
     }
 
     // 回答をパース
@@ -51,7 +62,7 @@ const ResultPage: NextPage = () => {
     // 結果データを取得
     const resultData = newResultMapping[calculatedType];
     setResult(resultData);
-  }, [router.isReady, position, answersQuery, router]);
+  }, [router.isReady, position, answersQuery, preview, router]);
 
   // ローディング中
   if (!newType || !result || !position) {
