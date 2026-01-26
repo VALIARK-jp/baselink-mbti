@@ -2,6 +2,8 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Position } from "../types";
+import { getCharacterImage } from "../utils/getCharacterImage";
+import { NewType } from "../types";
 
 /**
  * エントリーページ
@@ -83,14 +85,23 @@ const HomePage: NextPage = () => {
             {/* キャラクターグリッド（サンプル表示） */}
             <div className="grid grid-cols-4 md:grid-cols-8 gap-2 md:gap-3">
               {/* 投手と野手のキャラクターを表示 */}
-              {['pitcher/FNIA', 'pitcher/LNRA', 'batter/FNIB', 'batter/LPIA', 'pitcher/FPRA', 'batter/LNRB', 'pitcher/LNIB', 'batter/FPIA'].map((char, i) => (
+              {[
+                { position: 'pitcher' as const, type: 'FNIA' as NewType },
+                { position: 'pitcher' as const, type: 'LNRA' as NewType },
+                { position: 'batter' as const, type: 'FNIB' as NewType },
+                { position: 'batter' as const, type: 'LPIA' as NewType },
+                { position: 'pitcher' as const, type: 'FPRA' as NewType },
+                { position: 'batter' as const, type: 'LNRB' as NewType },
+                { position: 'pitcher' as const, type: 'LNIB' as NewType },
+                { position: 'batter' as const, type: 'FPIA' as NewType },
+              ].map((char, i) => (
                 <div
                   key={i}
                   className="aspect-square bg-gradient-to-br from-white to-blue-50 rounded-xl flex items-center justify-center border-2 border-baselink-primary/30 hover:scale-110 hover:shadow-lg transition-all overflow-hidden group relative animate-float"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <img
-                    src={`/images/characters/${char}.PNG`}
+                    src={getCharacterImage(char.type, char.position)}
                     alt={`Character ${i + 1}`}
                     className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform"
                   />

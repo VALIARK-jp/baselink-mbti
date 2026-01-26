@@ -28,7 +28,8 @@ export function getCharacterImage(
  * 画像がまだない場合のフォールバック
  */
 export function getPlaceholderImage(): string {
-  return "/images/characters/placeholder.png";
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  return `${basePath}/images/characters/placeholder.png`;
 }
 
 /**
