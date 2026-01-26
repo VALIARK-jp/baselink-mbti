@@ -32,83 +32,92 @@ const HomePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-baselink-dark via-slate-900 to-baselink-dark flex items-center justify-center px-4 py-8">
-        {/* 背景パターン */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          ></div>
+      <div className="h-screen bg-gradient-to-br from-white via-blue-50 to-slate-50 flex items-center justify-center px-4 py-4 relative overflow-hidden">
+        {/* 背景装飾 - 白と青のポップなパターン */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* 大きな円形装飾 */}
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-baselink-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-baselink-accent/10 rounded-full blur-3xl"></div>
+          
+          {/* グリッドパターン */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(to right, #0EA5E9 1px, transparent 1px), linear-gradient(to bottom, #0EA5E9 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}></div>
         </div>
 
-        <div className="max-w-md w-full text-center relative z-10">
-          {/* Baselink AI ロゴエリア */}
-          <div className="mb-6">
-            <div className="inline-block bg-baselink-primary/10 px-6 py-2 rounded-full mb-4">
-              <span className="text-baselink-primary font-bold text-sm">
-                Baselink AI
-              </span>
+        <div className="max-w-4xl w-full relative z-10">
+          {/* ヘッダーセクション */}
+          <div className="text-center mb-4">
+            {/* Baselink AI & SportsTech Japan ロゴ */}
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="bg-gradient-to-r from-baselink-primary to-baselink-accent px-6 py-2 rounded-full shadow-lg">
+                <span className="text-white font-bold text-sm">Baselink AI</span>
+              </div>
+              <span className="text-slate-400 text-xs">by</span>
+              <span className="text-slate-600 font-semibold text-sm">SportsTech Japan</span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black mb-2 bg-gradient-to-r from-baselink-primary via-baselink-accent to-baselink-primary bg-clip-text text-transparent">
+              16タイプ野球診断
+            </h1>
+            <p className="text-slate-700 text-base md:text-lg mb-1 leading-relaxed">
+              君のプレースタイルから、似ているプロ選手を特定
+            </p>
+            <p className="text-baselink-primary font-bold text-base md:text-lg">
+              ⚾ 眠れる才能をAIで言語化せよ ⚾
+            </p>
+          </div>
+
+          {/* MBTIキャラクター表示エリア */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-4 md:p-6 mb-4 border-2 border-baselink-primary/20 animate-fade-in">
+            <div className="text-center mb-3">
+              <div className="inline-block bg-gradient-to-r from-baselink-primary/10 to-baselink-accent/10 px-3 py-1 rounded-full mb-2">
+                <span className="text-baselink-primary font-bold text-xs">✨ 16タイプ ✨</span>
+              </div>
+              <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-1">
+                キャラクターが待ってる！
+              </h2>
+            </div>
+
+            {/* キャラクターグリッド（サンプル表示） */}
+            <div className="grid grid-cols-4 md:grid-cols-8 gap-2 md:gap-3">
+              {/* 投手と野手のキャラクターを表示 */}
+              {['pitcher/FNIA', 'pitcher/LNRA', 'batter/FNIB', 'batter/LPIA', 'pitcher/FPRA', 'batter/LNRB', 'pitcher/LNIB', 'batter/FPIA'].map((char, i) => (
+                <div
+                  key={i}
+                  className="aspect-square bg-gradient-to-br from-white to-blue-50 rounded-xl flex items-center justify-center border-2 border-baselink-primary/30 hover:scale-110 hover:shadow-lg transition-all overflow-hidden group relative animate-float"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <img
+                    src={`/images/characters/${char}.PNG`}
+                    alt={`Character ${i + 1}`}
+                    className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">
-            16タイプ野球診断
-          </h1>
-          <p className="text-slate-300 text-lg mb-10 leading-relaxed">
-            10問の質問で、
-            <br />
-            君のタイプと4つのチームを診断。
-            <br />
-            <span className="text-baselink-accent font-semibold">
-              眠れる才能をAIで言語化せよ。
-            </span>
-          </p>
-
-          <div className="space-y-4">
+          {/* ポジション選択ボタン */}
+          <div className="space-y-3">
             <button
               onClick={() => handleSelect("pitcher")}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold py-6 px-8 rounded-2xl text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border border-blue-400/20"
+              className="w-full bg-gradient-to-r from-baselink-primary via-baselink-secondary to-baselink-primary hover:from-baselink-secondary hover:via-baselink-primary hover:to-baselink-secondary text-white font-bold py-4 md:py-5 px-8 rounded-2xl text-lg md:text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border-2 border-white/50 flex items-center justify-center gap-3 relative overflow-hidden group"
             >
-              投手として診断
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="text-xl md:text-2xl relative z-10">⚾</span>
+              <span className="relative z-10">投手として診断</span>
+              <span className="text-xl md:text-2xl relative z-10">⚾</span>
             </button>
             <button
               onClick={() => handleSelect("batter")}
-              className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold py-6 px-8 rounded-2xl text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border border-red-400/20"
+              className="w-full bg-gradient-to-r from-baselink-accent via-cyan-500 to-baselink-accent hover:from-cyan-500 hover:via-baselink-accent hover:to-cyan-500 text-white font-bold py-4 md:py-5 px-8 rounded-2xl text-lg md:text-xl shadow-2xl transform transition-all hover:scale-[1.02] active:scale-100 border-2 border-white/50 flex items-center justify-center gap-3 relative overflow-hidden group"
             >
-              打者として診断
-            </button>
-          </div>
-
-          {/* 4チーム説明 */}
-          <div className="mt-12 grid grid-cols-2 gap-4 text-sm">
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-              <div className="text-blue-400 font-bold mb-1">青（司令）</div>
-              <div className="text-slate-400 text-xs">論理で引っ張る</div>
-            </div>
-            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-              <div className="text-red-400 font-bold mb-1">赤（熱狂）</div>
-              <div className="text-slate-400 text-xs">情熱で引っ張る</div>
-            </div>
-            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-              <div className="text-green-400 font-bold mb-1">緑（堅実）</div>
-              <div className="text-slate-400 text-xs">分析で支える</div>
-            </div>
-            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
-              <div className="text-yellow-400 font-bold mb-1">黄（創造）</div>
-              <div className="text-slate-400 text-xs">自由に輝く</div>
-            </div>
-          </div>
-
-          {/* キャラクター図鑑へのリンク */}
-          <div className="mt-8">
-            <button
-              onClick={() => router.push("/gallery")}
-              className="text-baselink-accent hover:text-baselink-primary text-sm font-medium underline transition-colors"
-            >
-              📚 全キャラクターを見る
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="text-xl md:text-2xl relative z-10">⚾</span>
+              <span className="relative z-10">野手として診断</span>
+              <span className="text-xl md:text-2xl relative z-10">⚾</span>
             </button>
           </div>
         </div>

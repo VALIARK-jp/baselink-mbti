@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Question, LikertAnswer } from "../types";
 
 interface QuizComponentProps {
@@ -17,6 +18,7 @@ export default function QuizComponent({
   totalQuestions,
   onAnswer,
 }: QuizComponentProps) {
+  const router = useRouter();
   const [selectedValue, setSelectedValue] = useState<LikertAnswer | null>(null);
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
@@ -41,6 +43,25 @@ export default function QuizComponent({
         {/* ヘッダー */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
+            <button
+              onClick={() => router.push("/")}
+              className="flex items-center gap-1.5 bg-white/80 backdrop-blur-sm hover:bg-white px-3 py-1.5 rounded-full shadow-md hover:shadow-lg transform transition-all hover:scale-105 active:scale-100 text-slate-700 hover:text-slate-900"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
+              </svg>
+              <span className="text-xs font-bold">戻る</span>
+            </button>
             <div className="text-baselink-primary font-bold text-sm">
               Baselink AI
             </div>
